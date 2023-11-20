@@ -41,7 +41,7 @@ class Usuario {
 		$this->getConection();
 
 		/* Valore por defecto */
-		$email = $content = "";
+		$email = $cedula = $nombre= $apellido= $celular= $departamento= $fecha_nacimiento= $tiene_hijos= $genero = "";
 
 		/* Verificar si existe */
 		$exists = false;
@@ -50,21 +50,35 @@ class Usuario {
 			if(isset($actualUsuario["email"])){
 				$exists = true;	
 				/* Actual values */
-				$id = $param["id"];
 				$email = $actualUsuario["email"];
-				$content = $actualUsuario["content"];
+				$cedula = $actualUsuario["cedula"];
+				$nombre = $actualUsuario["nombre"];
+				$apellido = $actualUsuario["apellido"];
+				$celular = $actualUsuario["celular"];
+				$departamento = $actualUsuario["departamento"];
+				$fecha_nacimiento = $actualUsuario["fecha_nacimiento"];
+				$tiene_hijos = $actualUsuario["tiene_hijos"];
+				$genero = $actualUsuario["genero"];
 			}
 		}
 
 		/* Recibir los valores */
 		if(isset($param["email"])) $email = $param["email"];
-		if(isset($param["content"])) $content = $param["content"];
+		if(isset($param["cedula"])) $cedula = $param["cedula"];
+		if(isset($param["nombre"])) $nombre = $param["nombre"];
+		if(isset($param["apellido"])) $apellido = $param["apellido"];
+		if(isset($param["celular"])) $celular = $param["celular"];
+		if(isset($param["departamento"])) $departamento = $param["departamento"];
+		if(isset($param["fecha_nacimiento"])) $fecha_nacimiento = $param["fecha_nacimiento"];
+		if(isset($param["tiene_hijos"])) $tiene_hijos = $param["tiene_hijos"];
+		if(isset($param["genero"])) $genero = $param["genero"];
 
 		/* Operaciones de base de datos UPDATE si existe INSERT si no existe */
 		if($exists){
-			$sql = "UPDATE ".$this->table. " SET email=?, content=? WHERE id=?";
+			$sql = "UPDATE ".$this->table. " SET cedula=?, nombre=?, apellido=?, celular=?, departamento=?, fecha_nacimiento=?,
+			tiene_hijos=?,genero=? WHERE email=?";
 			$stmt = $this->conection->prepare($sql);
-			$res = $stmt->execute([$email, $content, $id]);
+			$res = $stmt->execute([$cedula,$nombre, $apellido,$celular, $departamento,$fecha_nacimiento,$tiene_hijos,$genero, $email]);
 		}else{
 			$sql = "INSERT INTO ".$this->table. " (email) values(?)";
 			$stmt = $this->conection->prepare($sql);
@@ -72,7 +86,7 @@ class Usuario {
 			$id = $this->conection->lastInsertId();
 		}	
 
-		return $id;	
+		return $email;	
 
 	}
 

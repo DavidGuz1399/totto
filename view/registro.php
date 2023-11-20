@@ -1,3 +1,10 @@
+<?php
+$id = $email = $content = "";
+
+if(isset($dataToView["data"]["id"])) $id = $dataToView["data"]["id"];
+if(isset($dataToView["data"]["email"])) $email = $dataToView["data"]["email"];
+
+?>
 <main>
     <div class="main-content">
         <div class="center">
