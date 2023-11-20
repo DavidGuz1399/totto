@@ -5,6 +5,7 @@ require_once 'model/usuario.php';
 class usuarioController{
 	public $page_title;
 	public $view;
+	public $usuarioObj;
 
 	public function __construct() {
 		$this->view = 'registro';
@@ -12,27 +13,27 @@ class usuarioController{
 		$this->usuarioObj = new Usuario();
 	}
 
-	/* Listar todas las cobranzas */
+	/* Listar todas las usuarios */
 	public function list(){
 		$this->page_title = 'Listado de usuarios';
 		return $this->usuarioObj->getUsuarios();
 	}
 
 	/* Cargar la usuario para editar */
-	public function edit($id = null){
+	public function edit($email = null){
 		$this->page_title = 'Editar usuario';
 		$this->view = 'edit_registro';
 		/* Id can from get param or method param */
-		if(isset($_GET["id"])) $id = $_GET["id"];
-		return $this->usuarioObj->getUsuarioById($id);
+		if(isset($_GET["email"])) $email = $_GET["email"];
+		return $this->usuarioObj->getUsuarioByEmail($email);
 	}
 
 	/* Create or update usuario */
 	public function save(){
-		$this->view = 'edit_usuario';
+		$this->view = 'edit_registro';
 		$this->page_title = 'Editar usuario';
-		$id = $this->usuarioObj->save($_POST);
-		$result = $this->usuarioObj->getUsuarioById($id);
+		$email = $this->usuarioObj->save($_POST);
+		$result = $this->usuarioObj->getUsuarioByEmail($email);
 		$_GET["response"] = true;
 		return $result;
 	}
@@ -41,7 +42,7 @@ class usuarioController{
 	public function confirmDelete(){
 		$this->page_title = 'Eliminar usuario';
 		$this->view = 'confirm_delete_usuario';
-		return $this->usuarioObj->getUsuarioById($_GET["id"]);
+		return $this->usuarioObj->getUsuarioByEmail($_GET["email"]);
 	}
 
 	/* Delete */

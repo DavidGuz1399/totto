@@ -63,6 +63,16 @@
         text-decoration: none;
         font-family: Centra No1, sans-serif;
     }
+    .colection{
+        background-color: #000;
+        color: #ddd;
+        text-transform: uppercase;
+        font-family: Centra No1, sans-serif;
+        text-align: center;
+    }
+    .colection label{
+        color: #FBCD01;
+    }
 </style>
 <body>
     <header>
@@ -95,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="colection-">
-
+        <div class="colection">
+            <p> <label> Nueva </label> Coleccion Disney Pets</p>
         </div>
     </header>

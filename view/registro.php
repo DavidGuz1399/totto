@@ -3,12 +3,14 @@
         <div class="center">
             <h2>Ingresa tu correo para validarte en nuestra base de datos y continuar con el proceso.</h2>
         </div>
-        <div>
-            <input type="text" placeholder="Email" class="input">
-        </div>
-        <div class="center" style="margin-top:40px;">
-            <a class="button" href="index.php?controller=usuario&action=edit&id=<?php echo $usuario['id']; ?>" >ENVIAR</a>
-        </div>
+        <form class="form" action="index.php?controller=usuario&action=save" method="POST">
+            <div>
+                <input type="text" placeholder="Email" class="input" name="email" >
+            </div>
+            <div class="center" style="margin-top:40px;">
+                <button class="button" type="submit">ENVIAR</button>
+            </div>
+        </form>
         <div class="center informacion">
             <p>Necesitas ayuda?</p>
             <p>Linea nacional: 01 8000 510203 - Bogota: 390 73 93</p>

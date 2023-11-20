@@ -1,8 +1,16 @@
+<?php
+$id = $email = $cedula = "";
+
+if(isset($dataToView["data"]["id"])) $id = $dataToView["data"]["id"];
+if(isset($dataToView["data"]["email"])) $email = $dataToView["data"]["email"];
+
+?>
 <main>
     <div class="main-content">
         <div>
             <form action="">
-                <input type="text" placeholder="Email" class="input" id="email">
+                <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                <input type="text" placeholder="Email" class="input" id="email" value="<?php echo $email; ?>">
                 <input type="text" placeholder="Cédula/Identificación" class="input" id="cedula">
                 <input type="text" placeholder="Nombre" class="input" id="nombre">
                 <input type="text" placeholder="Apellido" class="input" id="apellido">

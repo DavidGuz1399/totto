@@ -26,12 +26,12 @@ class Usuario {
 	}
 
 	/* Obtener usuario por Id */
-	public function getUsuarioById($id){
-		if(is_null($id)) return false;
+	public function getUsuarioByEmail($email){
+		if(is_null($email)) return false;
 		$this->getConection();
-		$sql = "SELECT * FROM ".$this->table. " WHERE id = ?";
+		$sql = "SELECT * FROM ".$this->table. " WHERE email = ?";
 		$stmt = $this->conection->prepare($sql);
-		$stmt->execute([$id]);
+		$stmt->execute([$email]);
 
 		return $stmt->fetch();
 	}
@@ -41,34 +41,34 @@ class Usuario {
 		$this->getConection();
 
 		/* Valore por defecto */
-		$title = $content = "";
+		$email = $content = "";
 
 		/* Verificar si existe */
 		$exists = false;
-		if(isset($param["id"]) and $param["id"] !=''){
-			$actualCobranza = $this->getCobranzaById($param["id"]);
-			if(isset($actualCobranza["id"])){
+		if(isset($param["email"]) and $param["email"] !=''){
+			$actualUsuario = $this->getUsuarioByEmail($param["email"]);
+			if(isset($actualUsuario["email"])){
 				$exists = true;	
 				/* Actual values */
 				$id = $param["id"];
-				$title = $actualCobranza["title"];
-				$content = $actualCobranza["content"];
+				$email = $actualUsuario["email"];
+				$content = $actualUsuario["content"];
 			}
 		}
 
-		/* Recibir los valroes */
-		if(isset($param["title"])) $title = $param["title"];
+		/* Recibir los valores */
+		if(isset($param["email"])) $email = $param["email"];
 		if(isset($param["content"])) $content = $param["content"];
 
 		/* Operaciones de base de datos UPDATE si existe INSERT si no existe */
 		if($exists){
-			$sql = "UPDATE ".$this->table. " SET title=?, content=? WHERE id=?";
+			$sql = "UPDATE ".$this->table. " SET email=?, content=? WHERE id=?";
 			$stmt = $this->conection->prepare($sql);
-			$res = $stmt->execute([$title, $content, $id]);
+			$res = $stmt->execute([$email, $content, $id]);
 		}else{
-			$sql = "INSERT INTO ".$this->table. " (title, content) values(?, ?)";
+			$sql = "INSERT INTO ".$this->table. " (email) values(?)";
 			$stmt = $this->conection->prepare($sql);
-			$stmt->execute([$title, $content]);
+			$stmt->execute([$email]);
 			$id = $this->conection->lastInsertId();
 		}	
 
